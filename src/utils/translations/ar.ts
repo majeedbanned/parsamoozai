@@ -44,6 +44,7 @@ export const ar = {
       addStudent: "إضافة طالب",
       addNewStudent: "إضافة طالب جديد",
       searchPlaceholder: "البحث بالاسم...",
+      total: "طالب",
       form: {
         name: "الاسم",
         email: "البريد الإلكتروني",

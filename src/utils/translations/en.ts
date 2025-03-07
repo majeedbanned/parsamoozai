@@ -44,6 +44,7 @@ export const en = {
       addStudent: "Add Student",
       addNewStudent: "Add New Student",
       searchPlaceholder: "Search by name...",
+      total: "total students",
       form: {
         name: "Name",
         email: "Email",

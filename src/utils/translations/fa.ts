@@ -44,6 +44,7 @@ export const fa = {
       addStudent: "افزودن دانش‌آموز",
       addNewStudent: "افزودن دانش‌آموز جدید",
       searchPlaceholder: "جستجو بر اساس نام...",
+      total: "دانش‌آموز",
       form: {
         name: "نام",
         email: "ایمیل",

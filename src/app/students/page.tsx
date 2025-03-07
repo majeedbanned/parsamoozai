@@ -238,9 +238,14 @@ export default function StudentsPage() {
   return (
     <div className="container mx-auto py-10">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">
-          {t("pages.students.title", language)}
-        </h1>
+        <div className="flex items-center gap-4">
+          <h1 className="text-3xl font-bold">
+            {t("pages.students.title", language)}
+          </h1>
+          <span className="text-sm text-gray-500">
+            ({pagination?.total || 0} {t("pages.students.total", language)})
+          </span>
+        </div>
         <div className="flex gap-4">
           {selectedStudents.length > 0 && (
             <Button
