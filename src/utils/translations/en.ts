@@ -63,6 +63,7 @@ export const en = {
       },
       actions: {
         edit: "Edit",
+        export: "Export Excel",
       },
       errors: {
         addFailed: "Failed to add student",

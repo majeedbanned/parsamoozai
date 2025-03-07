@@ -36,9 +36,9 @@ export const fa = {
   },
   pages: {
     students: {
-      title: "لیست دانش آموزان",
-      addStudent: "افزودن دانش آموز",
-      addNewStudent: "افزودن دانش آموز جدید",
+      title: "لیست دانش‌آموزان",
+      addStudent: "افزودن دانش‌آموز",
+      addNewStudent: "افزودن دانش‌آموز جدید",
       searchPlaceholder: "جستجو بر اساس نام...",
       form: {
         name: "نام",
@@ -66,9 +66,10 @@ export const fa = {
       },
       actions: {
         edit: "ویرایش",
+        export: "خروجی اکسل",
       },
       errors: {
-        addFailed: "خطا در افزودن دانش آموز",
+        addFailed: "خطا در افزودن دانش‌آموز",
       },
     },
   },

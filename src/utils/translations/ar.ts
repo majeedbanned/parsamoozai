@@ -66,6 +66,7 @@ export const ar = {
       },
       actions: {
         edit: "تعديل",
+        export: "تصدير Excel",
       },
       errors: {
         addFailed: "فشل في إضافة الطالب",

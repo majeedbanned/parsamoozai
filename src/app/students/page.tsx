@@ -15,6 +15,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { t } from "@/utils/translations";
 import { AddStudentDialog } from "@/components/students/AddStudentDialog";
 import { EditStudentDialog } from "@/components/students/EditStudentDialog";
+import * as XLSX from "xlsx";
 
 interface Student {
   id: string;
@@ -81,6 +82,37 @@ export default function StudentsPage() {
     fetchStudents();
   };
 
+  const handleExport = () => {
+    // Prepare data for export
+    const exportData = filteredStudents.map((student) => ({
+      [t("pages.students.columns.name", language)]: student.name,
+      [t("pages.students.columns.email", language)]: student.email,
+      [t("pages.students.columns.username", language)]: student.username,
+      [t("pages.students.columns.password", language)]: student.password,
+      [t("pages.students.columns.fathername", language)]: student.fathername,
+      [t("pages.students.columns.grade", language)]: student.grade,
+      [t("pages.students.columns.status", language)]: t(
+        `pages.students.status.${student.status}`,
+        language
+      ),
+    }));
+
+    // Create workbook and worksheet
+    const wb = XLSX.utils.book_new();
+    const ws = XLSX.utils.json_to_sheet(exportData);
+
+    // Add worksheet to workbook
+    XLSX.utils.book_append_sheet(wb, ws, t("pages.students.title", language));
+
+    // Generate Excel file
+    XLSX.writeFile(
+      wb,
+      `${t("pages.students.title", language)}_${
+        new Date().toISOString().split("T")[0]
+      }.xlsx`
+    );
+  };
+
   if (loading) {
     return (
       <div className="container mx-auto py-10">
@@ -113,6 +145,13 @@ export default function StudentsPage() {
             onChange={(e) => setSearchQuery(e.target.value)}
             className="max-w-sm"
           />
+          <Button
+            variant="outline"
+            onClick={handleExport}
+            className="whitespace-nowrap"
+          >
+            {t("pages.students.actions.export", language)}
+          </Button>
           <AddStudentDialog onStudentAdded={fetchStudents} />
         </div>
       </div>
