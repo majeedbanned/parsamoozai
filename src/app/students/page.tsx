@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { t } from "@/utils/translations";
 import { AddStudentDialog } from "@/components/students/AddStudentDialog";
+import { EditStudentDialog } from "@/components/students/EditStudentDialog";
 
 interface Student {
   id: string;
@@ -33,6 +34,8 @@ export default function StudentsPage() {
   const [students, setStudents] = useState<Student[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const { language } = useLanguage();
 
   const fetchStudents = async () => {
@@ -66,6 +69,17 @@ export default function StudentsPage() {
   const filteredStudents = students.filter((student) =>
     student.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  const handleEdit = (student: Student) => {
+    setSelectedStudent(student);
+    setIsEditDialogOpen(true);
+  };
+
+  const handleEditSuccess = () => {
+    setIsEditDialogOpen(false);
+    setSelectedStudent(null);
+    fetchStudents();
+  };
 
   if (loading) {
     return (
@@ -153,7 +167,11 @@ export default function StudentsPage() {
                   </span>
                 </TableCell>
                 <TableCell className="text-right">
-                  <Button variant="ghost" size="sm">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => handleEdit(student)}
+                  >
                     {t("pages.students.actions.edit", language)}
                   </Button>
                 </TableCell>
@@ -162,6 +180,15 @@ export default function StudentsPage() {
           </TableBody>
         </Table>
       </div>
+
+      {selectedStudent && (
+        <EditStudentDialog
+          open={isEditDialogOpen}
+          onOpenChange={setIsEditDialogOpen}
+          student={selectedStudent}
+          onSuccess={handleEditSuccess}
+        />
+      )}
     </div>
   );
 }
