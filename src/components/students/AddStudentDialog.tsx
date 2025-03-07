@@ -29,6 +29,9 @@ export function AddStudentDialog({ onStudentAdded }: AddStudentDialogProps) {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    username: "",
+    password: "",
+    fathername: "",
     grade: "",
     status: "active",
   });
@@ -57,6 +60,9 @@ export function AddStudentDialog({ onStudentAdded }: AddStudentDialogProps) {
       setFormData({
         name: "",
         email: "",
+        username: "",
+        password: "",
+        fathername: "",
         grade: "",
         status: "active",
       });
@@ -108,6 +114,42 @@ export function AddStudentDialog({ onStudentAdded }: AddStudentDialogProps) {
               value={formData.email}
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
+              }
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium">
+              {t("pages.students.form.username", language)}
+            </label>
+            <Input
+              required
+              value={formData.username}
+              onChange={(e) =>
+                setFormData({ ...formData, username: e.target.value })
+              }
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium">
+              {t("pages.students.form.password", language)}
+            </label>
+            <Input
+              type="password"
+              required
+              value={formData.password}
+              onChange={(e) =>
+                setFormData({ ...formData, password: e.target.value })
+              }
+            />
+          </div>
+          <div className="space-y-2">
+            <label className="text-sm font-medium">
+              {t("pages.students.form.fathername", language)}
+            </label>
+            <Input
+              value={formData.fathername}
+              onChange={(e) =>
+                setFormData({ ...formData, fathername: e.target.value })
               }
             />
           </div>

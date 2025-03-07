@@ -28,6 +28,9 @@ export async function POST(request: Request) {
       data: {
         name: body.name,
         email: body.email,
+        username: body.username,
+        password: body.password,
+        fathername: body.fathername,
         grade: body.grade,
         status: body.status,
       },

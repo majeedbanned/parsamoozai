@@ -19,6 +19,9 @@ interface Student {
   id: string;
   name: string;
   email: string;
+  username: string;
+  password: string;
+  fathername: string;
   grade: string;
   status: "active" | "inactive";
   createdAt: string;
@@ -110,6 +113,15 @@ export default function StudentsPage() {
                 {t("pages.students.columns.email", language)}
               </TableHead>
               <TableHead>
+                {t("pages.students.columns.username", language)}
+              </TableHead>
+              <TableHead>
+                {t("pages.students.columns.password", language)}
+              </TableHead>
+              <TableHead>
+                {t("pages.students.columns.fathername", language)}
+              </TableHead>
+              <TableHead>
                 {t("pages.students.columns.grade", language)}
               </TableHead>
               <TableHead>
@@ -125,6 +137,9 @@ export default function StudentsPage() {
               <TableRow key={student.id}>
                 <TableCell>{student.name}</TableCell>
                 <TableCell>{student.email}</TableCell>
+                <TableCell>{student.username}</TableCell>
+                <TableCell>{student.password}</TableCell>
+                <TableCell>{student.fathername}</TableCell>
                 <TableCell>{student.grade}</TableCell>
                 <TableCell>
                   <span

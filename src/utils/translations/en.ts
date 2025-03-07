@@ -50,6 +50,9 @@ export const en = {
       columns: {
         name: "Name",
         email: "Email",
+        username: "Username",
+        password: "Password",
+        fathername: "Father's Name",
         grade: "Grade",
         status: "Status",
         actions: "Actions",
