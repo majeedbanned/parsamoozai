@@ -69,6 +69,7 @@ export const en = {
         add: "Add Student",
         edit: "Edit",
         delete: "Delete",
+        deleteSelected: "Delete Selected",
         export: "Export Excel",
       },
       dialog: {
@@ -76,6 +77,11 @@ export const en = {
           title: "Delete Student",
           description: "Are you sure you want to delete {name}? This action cannot be undone.",
           confirm: "Delete",
+        },
+        bulkDelete: {
+          title: "Delete Selected Students",
+          description: "Are you sure you want to delete {count} students? This action cannot be undone.",
+          confirm: "Delete Selected",
         },
       },
       pagination: {

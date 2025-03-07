@@ -17,6 +17,8 @@ import { AddStudentDialog } from "@/components/students/AddStudentDialog";
 import { EditStudentDialog } from "@/components/students/EditStudentDialog";
 import { DeleteStudentDialog } from "@/components/students/DeleteStudentDialog";
 import * as XLSX from "xlsx";
+import { BulkDeleteDialog } from "@/components/students/BulkDeleteDialog";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface Student {
   id: string;
@@ -50,6 +52,9 @@ export default function StudentsPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
   const [pagination, setPagination] = useState<PaginationInfo | null>(null);
+  const [selectedStudents, setSelectedStudents] = useState<string[]>([]);
+  const [isBulkDeleteDialogOpen, setIsBulkDeleteDialogOpen] = useState(false);
+  const [bulkDeleteLoading, setBulkDeleteLoading] = useState(false);
   const { language } = useLanguage();
 
   const fetchStudents = async (page: number = 1) => {
@@ -164,6 +169,53 @@ export default function StudentsPage() {
     );
   };
 
+  const handleSelectAll = (checked: boolean) => {
+    if (checked) {
+      setSelectedStudents(filteredStudents.map((student) => student.id));
+    } else {
+      setSelectedStudents([]);
+    }
+  };
+
+  const handleSelectStudent = (studentId: string) => {
+    setSelectedStudents((prev) =>
+      prev.includes(studentId)
+        ? prev.filter((id) => id !== studentId)
+        : [...prev, studentId]
+    );
+  };
+
+  const handleBulkDelete = async () => {
+    if (selectedStudents.length === 0) return;
+
+    setBulkDeleteLoading(true);
+    try {
+      const response = await fetch("/api/students/bulk-delete", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ids: selectedStudents }),
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to delete students");
+      }
+
+      setIsBulkDeleteDialogOpen(false);
+      setSelectedStudents([]);
+      fetchStudents(currentPage);
+    } catch (err) {
+      console.error("Error deleting students:", err);
+      setError(
+        err instanceof Error ? err.message : "Failed to delete students"
+      );
+    } finally {
+      setBulkDeleteLoading(false);
+    }
+  };
+
   if (loading) {
     return (
       <div className="container mx-auto py-10">
@@ -190,6 +242,15 @@ export default function StudentsPage() {
           {t("pages.students.title", language)}
         </h1>
         <div className="flex gap-4">
+          {selectedStudents.length > 0 && (
+            <Button
+              variant="destructive"
+              onClick={() => setIsBulkDeleteDialogOpen(true)}
+            >
+              {t("pages.students.actions.deleteSelected", language)} (
+              {selectedStudents.length})
+            </Button>
+          )}
           <Input
             placeholder={t("pages.students.searchPlaceholder", language)}
             value={searchQuery}
@@ -210,6 +271,12 @@ export default function StudentsPage() {
         <Table>
           <TableHeader>
             <TableRow>
+              <TableHead className="w-[50px]">
+                <Checkbox
+                  checked={selectedStudents.length === filteredStudents.length}
+                  onCheckedChange={handleSelectAll}
+                />
+              </TableHead>
               <TableHead className="text-right rtl:text-right ltr:text-left">
                 {t("pages.students.columns.name", language)}
               </TableHead>
@@ -239,6 +306,12 @@ export default function StudentsPage() {
           <TableBody>
             {filteredStudents.map((student) => (
               <TableRow key={student.id}>
+                <TableCell>
+                  <Checkbox
+                    checked={selectedStudents.includes(student.id)}
+                    onCheckedChange={() => handleSelectStudent(student.id)}
+                  />
+                </TableCell>
                 <TableCell className="text-right rtl:text-right ltr:text-left">
                   {student.name}
                 </TableCell>
@@ -359,6 +432,14 @@ export default function StudentsPage() {
           />
         </>
       )}
+
+      <BulkDeleteDialog
+        open={isBulkDeleteDialogOpen}
+        onOpenChange={setIsBulkDeleteDialogOpen}
+        selectedCount={selectedStudents.length}
+        onConfirm={handleBulkDelete}
+        loading={bulkDeleteLoading}
+      />
     </div>
   );
 }

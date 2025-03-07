@@ -72,6 +72,7 @@ export const ar = {
         add: "إضافة طالب",
         edit: "تعديل",
         delete: "حذف",
+        deleteSelected: "حذف المحدد",
         export: "تصدير Excel",
       },
       dialog: {
@@ -79,6 +80,11 @@ export const ar = {
           title: "حذف الطالب",
           description: "هل أنت متأكد من حذف {name}؟ لا يمكن التراجع عن هذا الإجراء.",
           confirm: "حذف",
+        },
+        bulkDelete: {
+          title: "حذف الطلاب المحددين",
+          description: "هل أنت متأكد من حذف {count} طالب؟ لا يمكن التراجع عن هذا الإجراء.",
+          confirm: "حذف المحدد",
         },
       },
       pagination: {

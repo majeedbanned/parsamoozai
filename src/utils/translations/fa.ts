@@ -72,6 +72,7 @@ export const fa = {
         add: "افزودن دانش‌آموز",
         edit: "ویرایش",
         delete: "حذف",
+        deleteSelected: "حذف انتخاب شده",
         export: "خروجی اکسل",
       },
       dialog: {
@@ -79,6 +80,11 @@ export const fa = {
           title: "حذف دانش‌آموز",
           description: "آیا از حذف {name} اطمینان دارید؟ این عملیات قابل بازگشت نیست.",
           confirm: "حذف",
+        },
+        bulkDelete: {
+          title: "حذف دانش‌آموزان انتخاب شده",
+          description: "آیا از حذف {count} دانش‌آموز اطمینان دارید؟ این عملیات قابل بازگشت نیست.",
+          confirm: "حذف انتخاب شده",
         },
       },
       pagination: {
