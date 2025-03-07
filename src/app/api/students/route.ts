@@ -1,14 +1,36 @@
 import { NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+import { PrismaClient } from '@prisma/client'
 
-export async function GET() {
+const prisma = new PrismaClient()
+
+export async function GET(request: Request) {
   try {
+    const { searchParams } = new URL(request.url)
+    const page = parseInt(searchParams.get('page') || '1')
+    const limit = 20
+    const skip = (page - 1) * limit
+
+    // Get total count for pagination
+    const total = await prisma.student.count()
+
+    // Get paginated students
     const students = await prisma.student.findMany({
+      skip,
+      take: limit,
       orderBy: {
         createdAt: 'desc',
       },
     })
-    return NextResponse.json(students)
+
+    return NextResponse.json({
+      students,
+      pagination: {
+        total,
+        page,
+        limit,
+        totalPages: Math.ceil(total / limit),
+      },
+    })
   } catch (error) {
     console.error('Error fetching students:', error)
     return NextResponse.json(
@@ -21,9 +43,31 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    console.log('Received request body:', body)
 
-    // Create student directly without transactions
+    // Check for existing email
+    const existingEmail = await prisma.student.findUnique({
+      where: { email: body.email },
+    })
+
+    if (existingEmail) {
+      return NextResponse.json(
+        { error: 'Email already exists' },
+        { status: 400 }
+      )
+    }
+
+    // Check for existing username
+    const existingUsername = await prisma.student.findUnique({
+      where: { username: body.username },
+    })
+
+    if (existingUsername) {
+      return NextResponse.json(
+        { error: 'Username already exists' },
+        { status: 400 }
+      )
+    }
+
     const student = await prisma.student.create({
       data: {
         name: body.name,

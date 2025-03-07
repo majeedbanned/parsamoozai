@@ -3,6 +3,10 @@ export const en = {
     save: "Save",
     saving: "Saving...",
     cancel: "Cancel",
+    previous: "Previous",
+    next: "Next",
+    page: "Page",
+    of: "of",
   },
   menu: {
     categories: {

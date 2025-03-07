@@ -3,6 +3,10 @@ export const fa = {
     save: "ذخیره",
     saving: "در حال ذخیره...",
     cancel: "لغو",
+    previous: "قبلی",
+    next: "بعدی",
+    page: "صفحه",
+    of: "از",
   },
   menu: {
     categories: {

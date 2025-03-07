@@ -30,6 +30,13 @@ interface Student {
   updatedAt: string;
 }
 
+interface PaginationInfo {
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+}
+
 export default function StudentsPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [students, setStudents] = useState<Student[]>([]);
@@ -37,11 +44,13 @@ export default function StudentsPage() {
   const [error, setError] = useState<string | null>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pagination, setPagination] = useState<PaginationInfo | null>(null);
   const { language } = useLanguage();
 
-  const fetchStudents = async () => {
+  const fetchStudents = async (page: number = 1) => {
     try {
-      const response = await fetch("/api/students");
+      const response = await fetch(`/api/students?page=${page}`);
       const data = await response.json();
 
       if (!response.ok) {
@@ -50,7 +59,8 @@ export default function StudentsPage() {
         );
       }
 
-      setStudents(data);
+      setStudents(data.students);
+      setPagination(data.pagination);
     } catch (err) {
       console.error("Error fetching students:", err);
       setError(
@@ -64,8 +74,8 @@ export default function StudentsPage() {
   };
 
   useEffect(() => {
-    fetchStudents();
-  }, []);
+    fetchStudents(currentPage);
+  }, [currentPage]);
 
   const filteredStudents = students.filter((student) =>
     student.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -79,7 +89,7 @@ export default function StudentsPage() {
   const handleEditSuccess = () => {
     setIsEditDialogOpen(false);
     setSelectedStudent(null);
-    fetchStudents();
+    fetchStudents(currentPage);
   };
 
   const handleExport = () => {
@@ -152,7 +162,7 @@ export default function StudentsPage() {
           >
             {t("pages.students.actions.export", language)}
           </Button>
-          <AddStudentDialog onStudentAdded={fetchStudents} />
+          <AddStudentDialog onStudentAdded={() => fetchStudents(currentPage)} />
         </div>
       </div>
       <div className="rounded-md border">
@@ -231,6 +241,34 @@ export default function StudentsPage() {
           </TableBody>
         </Table>
       </div>
+
+      {/* Pagination Controls */}
+      {pagination && (
+        <div className="flex justify-center items-center gap-2 mt-4">
+          <Button
+            variant="outline"
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+          >
+            {t("common.previous", language)}
+          </Button>
+          <span className="mx-2">
+            {t("common.page", language)} {currentPage}{" "}
+            {t("common.of", language)} {pagination.totalPages}
+          </span>
+          <Button
+            variant="outline"
+            onClick={() =>
+              setCurrentPage((prev) =>
+                Math.min(prev + 1, pagination.totalPages)
+              )
+            }
+            disabled={currentPage === pagination.totalPages}
+          >
+            {t("common.next", language)}
+          </Button>
+        </div>
+      )}
 
       {selectedStudent && (
         <EditStudentDialog

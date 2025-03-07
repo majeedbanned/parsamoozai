@@ -3,6 +3,10 @@ export const ar = {
     save: "حفظ",
     saving: "جاري الحفظ...",
     cancel: "إلغاء",
+    previous: "السابق",
+    next: "التالي",
+    page: "صفحة",
+    of: "من",
   },
   menu: {
     categories: {
