@@ -7,7 +7,7 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
     const page = parseInt(searchParams.get('page') || '1')
-    const limit = 20
+    const limit = 12
     const skip = (page - 1) * limit
 
     // Get total count for pagination
