@@ -2,6 +2,7 @@
   "menu": {
     "categories": {
       "overview": "Overview",
+      "students": "Students",
       "ecommerce": "E-commerce",
       "userManagement": "User Management",
       "analytics": "Analytics",
@@ -9,6 +10,7 @@
     },
     "items": {
       "dashboard": "Dashboard",
+      "studentsList": "Students List",
       "orders": "Orders",
       "allOrders": "All Orders",
       "shipments": "Shipments",
@@ -25,6 +27,27 @@
       "settings": "Settings",
       "notifications": "Notifications",
       "security": "Security"
+    }
+  },
+  "pages": {
+    "students": {
+      "title": "Students List",
+      "searchPlaceholder": "Search students...",
+      "addStudent": "Add Student",
+      "columns": {
+        "name": "Name",
+        "email": "Email",
+        "grade": "Grade",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "actions": {
+        "edit": "Edit"
+      }
     }
   }
 } 

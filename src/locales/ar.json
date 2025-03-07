@@ -2,6 +2,7 @@
   "menu": {
     "categories": {
       "overview": "نظرة عامة",
+      "students": "الطلاب",
       "ecommerce": "التجارة الإلكترونية",
       "userManagement": "إدارة المستخدمين",
       "analytics": "التحليلات",
@@ -9,6 +10,7 @@
     },
     "items": {
       "dashboard": "لوحة التحكم",
+      "studentsList": "قائمة الطلاب",
       "orders": "الطلبات",
       "allOrders": "جميع الطلبات",
       "shipments": "الشحنات",
@@ -25,6 +27,27 @@
       "settings": "الإعدادات",
       "notifications": "الإشعارات",
       "security": "الأمان"
+    }
+  },
+  "pages": {
+    "students": {
+      "title": "قائمة الطلاب",
+      "searchPlaceholder": "البحث عن الطلاب...",
+      "addStudent": "إضافة طالب",
+      "columns": {
+        "name": "الاسم",
+        "email": "البريد الإلكتروني",
+        "grade": "الصف",
+        "status": "الحالة",
+        "actions": "الإجراءات"
+      },
+      "status": {
+        "active": "نشط",
+        "inactive": "غير نشط"
+      },
+      "actions": {
+        "edit": "تعديل"
+      }
     }
   }
 } 

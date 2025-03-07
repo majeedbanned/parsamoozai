@@ -2,6 +2,7 @@
   "menu": {
     "categories": {
       "overview": "نمای کلی",
+      "students": "دانش‌آموزان",
       "ecommerce": "تجارت الکترونیک",
       "userManagement": "مدیریت کاربران",
       "analytics": "تحلیل‌ها",
@@ -9,6 +10,7 @@
     },
     "items": {
       "dashboard": "داشبورد",
+      "studentsList": "لیست دانش‌آموزان",
       "orders": "سفارش‌ها",
       "allOrders": "همه سفارش‌ها",
       "shipments": "ارسال‌ها",
@@ -25,6 +27,27 @@
       "settings": "تنظیمات",
       "notifications": "اعلان‌ها",
       "security": "امنیت"
+    }
+  },
+  "pages": {
+    "students": {
+      "title": "لیست دانش‌آموزان",
+      "searchPlaceholder": "جستجوی دانش‌آموزان...",
+      "addStudent": "افزودن دانش‌آموز",
+      "columns": {
+        "name": "نام",
+        "email": "ایمیل",
+        "grade": "پایه",
+        "status": "وضعیت",
+        "actions": "عملیات"
+      },
+      "status": {
+        "active": "فعال",
+        "inactive": "غیرفعال"
+      },
+      "actions": {
+        "edit": "ویرایش"
+      }
     }
   }
 } 

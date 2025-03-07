@@ -25,6 +25,7 @@ import {
   LineChart,
   Bell,
   Shield,
+  GraduationCap,
 } from "lucide-react";
 import { LanguageSwitcher } from "./language-switcher";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -59,6 +60,18 @@ export function Sidebar() {
           label: "Dashboard",
           translationKey: "menu.items.dashboard",
           href: "/",
+        },
+      ],
+    },
+    {
+      title: "Students",
+      translationKey: "menu.categories.students",
+      items: [
+        {
+          icon: GraduationCap,
+          label: "Students List",
+          translationKey: "menu.items.studentsList",
+          href: "/students",
         },
       ],
     },
