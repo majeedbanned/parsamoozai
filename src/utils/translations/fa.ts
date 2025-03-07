@@ -69,8 +69,17 @@ export const fa = {
         inactive: "غیرفعال",
       },
       actions: {
+        add: "افزودن دانش‌آموز",
         edit: "ویرایش",
+        delete: "حذف",
         export: "خروجی اکسل",
+      },
+      dialog: {
+        delete: {
+          title: "حذف دانش‌آموز",
+          description: "آیا از حذف {name} اطمینان دارید؟ این عملیات قابل بازگشت نیست.",
+          confirm: "حذف",
+        },
       },
       pagination: {
         show: "نمایش",

@@ -66,8 +66,17 @@ export const en = {
         inactive: "Inactive",
       },
       actions: {
+        add: "Add Student",
         edit: "Edit",
+        delete: "Delete",
         export: "Export Excel",
+      },
+      dialog: {
+        delete: {
+          title: "Delete Student",
+          description: "Are you sure you want to delete {name}? This action cannot be undone.",
+          confirm: "Delete",
+        },
       },
       pagination: {
         show: "Show",

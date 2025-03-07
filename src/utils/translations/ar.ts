@@ -69,8 +69,17 @@ export const ar = {
         inactive: "غير نشط",
       },
       actions: {
+        add: "إضافة طالب",
         edit: "تعديل",
+        delete: "حذف",
         export: "تصدير Excel",
+      },
+      dialog: {
+        delete: {
+          title: "حذف الطالب",
+          description: "هل أنت متأكد من حذف {name}؟ لا يمكن التراجع عن هذا الإجراء.",
+          confirm: "حذف",
+        },
       },
       pagination: {
         show: "عرض",

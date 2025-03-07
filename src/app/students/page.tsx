@@ -15,6 +15,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { t } from "@/utils/translations";
 import { AddStudentDialog } from "@/components/students/AddStudentDialog";
 import { EditStudentDialog } from "@/components/students/EditStudentDialog";
+import { DeleteStudentDialog } from "@/components/students/DeleteStudentDialog";
 import * as XLSX from "xlsx";
 
 interface Student {
@@ -43,7 +44,9 @@ export default function StudentsPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
+  const [deleteLoading, setDeleteLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
   const [pagination, setPagination] = useState<PaginationInfo | null>(null);
@@ -98,6 +101,36 @@ export default function StudentsPage() {
     setIsEditDialogOpen(false);
     setSelectedStudent(null);
     fetchStudents(currentPage);
+  };
+
+  const handleDelete = async (student: Student) => {
+    setSelectedStudent(student);
+    setIsDeleteDialogOpen(true);
+  };
+
+  const handleDeleteConfirm = async () => {
+    if (!selectedStudent) return;
+
+    setDeleteLoading(true);
+    try {
+      const response = await fetch(`/api/students/${selectedStudent.id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        const data = await response.json();
+        throw new Error(data.error || "Failed to delete student");
+      }
+
+      setIsDeleteDialogOpen(false);
+      setSelectedStudent(null);
+      fetchStudents(currentPage);
+    } catch (err) {
+      console.error("Error deleting student:", err);
+      setError(err instanceof Error ? err.message : "Failed to delete student");
+    } finally {
+      setDeleteLoading(false);
+    }
   };
 
   const handleExport = () => {
@@ -236,13 +269,23 @@ export default function StudentsPage() {
                   </span>
                 </TableCell>
                 <TableCell className="text-right">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => handleEdit(student)}
-                  >
-                    {t("pages.students.actions.edit", language)}
-                  </Button>
+                  <div className="flex gap-2">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      onClick={() => handleEdit(student)}
+                    >
+                      {t("pages.students.actions.edit", language)}
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-red-600 hover:text-red-700"
+                      onClick={() => handleDelete(student)}
+                    >
+                      {t("pages.students.actions.delete", language)}
+                    </Button>
+                  </div>
                 </TableCell>
               </TableRow>
             ))}
@@ -300,12 +343,21 @@ export default function StudentsPage() {
       )}
 
       {selectedStudent && (
-        <EditStudentDialog
-          open={isEditDialogOpen}
-          onOpenChange={setIsEditDialogOpen}
-          student={selectedStudent}
-          onSuccess={handleEditSuccess}
-        />
+        <>
+          <EditStudentDialog
+            open={isEditDialogOpen}
+            onOpenChange={setIsEditDialogOpen}
+            student={selectedStudent}
+            onSuccess={handleEditSuccess}
+          />
+          <DeleteStudentDialog
+            open={isDeleteDialogOpen}
+            onOpenChange={setIsDeleteDialogOpen}
+            studentName={selectedStudent.name}
+            onConfirm={handleDeleteConfirm}
+            loading={deleteLoading}
+          />
+        </>
       )}
     </div>
   );
