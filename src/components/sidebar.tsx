@@ -202,36 +202,46 @@ export function Sidebar() {
       <div key={item.label}>
         <Button
           variant="ghost"
-          className={`w-full justify-start ${isCollapsed ? "px-2" : "px-4"} ${
-            isSubmenuItem ? (direction === "rtl" ? "pr-8" : "pl-8") : ""
-          } text-${direction === "rtl" ? "right" : "left"}`}
+          className={`w-full  ${isCollapsed ? "px-2" : "px-4"} ${
+            isSubmenuItem ? (direction === "rtl" ? "pr-2" : "pl-2") : ""
+          } flex ${
+            direction === "rtl" ? "flex-row-reverse" : "flex-row"
+          } justify-between`}
           onClick={() => (hasSubmenu ? toggleSubmenu(item.label) : undefined)}
           asChild={!hasSubmenu}
         >
           {hasSubmenu ? (
             <div
-              className={`flex items-center ${
-                direction === "rtl" ? "space-x-reverse" : ""
-              } space-x-2`}
+              className={`flex w-full items-center ${
+                direction === "rtl" ? "flex-row-reverse" : "flex-row"
+              } justify-between`}
             >
-              <item.icon className="h-5 w-5" />
+              <div
+                className={`flex items-center ${
+                  direction === "rtl"
+                    ? "flex-row-reverse gap-2"
+                    : "flex-row gap-2"
+                }`}
+              >
+                <item.icon className="h-5 w-5" />
+                {!isCollapsed && <span>{translatedLabel}</span>}
+              </div>
               {!isCollapsed && (
-                <>
-                  <span className="flex-1">{translatedLabel}</span>
-                  <ChevronDown
-                    className={`h-4 w-4 transition-transform ${
-                      isExpanded ? "transform rotate-180" : ""
-                    }`}
-                  />
-                </>
+                <ChevronDown
+                  className={`h-4 w-4 transition-transform ${
+                    isExpanded ? "transform rotate-180" : ""
+                  } ${direction === "rtl" ? "rotate-180" : ""}`}
+                />
               )}
             </div>
           ) : (
             <a
               href={item.href}
-              className={`flex items-center ${
-                direction === "rtl" ? "space-x-reverse" : ""
-              } space-x-2`}
+              className={`flex w-full  flex-start ${
+                direction === "rtl"
+                  ? "flex-row-reverse gap-2"
+                  : "flex-row gap-2"
+              }`}
             >
               <item.icon className="h-5 w-5" />
               {!isCollapsed && <span>{translatedLabel}</span>}
@@ -240,9 +250,11 @@ export function Sidebar() {
         </Button>
         {hasSubmenu && isExpanded && !isCollapsed && (
           <div
-            className={`${
-              direction === "rtl" ? "mr-4 border-r" : "ml-4 border-l"
-            } pl-2 mt-1`}
+            className={`mt-1 ${
+              direction === "rtl"
+                ? "border-r border-r-border pr-4 mr-4"
+                : "border-l border-l-border pl-4 ml-4"
+            }`}
           >
             {item.submenu?.map((subItem) => renderMenuItem(subItem, true))}
           </div>
@@ -264,17 +276,19 @@ export function Sidebar() {
         <Button
           variant="ghost"
           size="icon"
+          className={`${direction === "rtl" ? "rotate-180" : ""}`}
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="h-8 w-8"
         >
-          {isCollapsed ? (
-            <ChevronRight
-              className={`h-4 w-4 ${direction === "rtl" ? "rotate-180" : ""}`}
-            />
+          {direction === "rtl" ? (
+            isCollapsed ? (
+              <ChevronLeft />
+            ) : (
+              <ChevronRight />
+            )
+          ) : isCollapsed ? (
+            <ChevronRight />
           ) : (
-            <ChevronLeft
-              className={`h-4 w-4 ${direction === "rtl" ? "rotate-180" : ""}`}
-            />
+            <ChevronLeft />
           )}
         </Button>
       </div>
@@ -285,8 +299,8 @@ export function Sidebar() {
             <div key={category.title} className="px-3 py-2">
               {!isCollapsed && (
                 <h2
-                  className={`mb-2 px-4 text-lg font-semibold tracking-tight text-${
-                    direction === "rtl" ? "right" : "left"
+                  className={`mb-2 px-4 text-lg font-semibold text-blue-400 tracking-tight ${
+                    direction === "rtl" ? "text-right" : "text-left"
                   }`}
                 >
                   {t(category.translationKey, language)}
