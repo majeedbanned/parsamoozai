@@ -1,0 +1,30 @@
+{
+  "menu": {
+    "categories": {
+      "overview": "Overview",
+      "ecommerce": "E-commerce",
+      "userManagement": "User Management",
+      "analytics": "Analytics",
+      "system": "System"
+    },
+    "items": {
+      "dashboard": "Dashboard",
+      "orders": "Orders",
+      "allOrders": "All Orders",
+      "shipments": "Shipments",
+      "payments": "Payments",
+      "products": "Products",
+      "users": "Users",
+      "allUsers": "All Users",
+      "addUser": "Add User",
+      "roles": "Roles",
+      "reports": "Reports",
+      "sales": "Sales",
+      "productAnalytics": "Products",
+      "traffic": "Traffic",
+      "settings": "Settings",
+      "notifications": "Notifications",
+      "security": "Security"
+    }
+  }
+} 

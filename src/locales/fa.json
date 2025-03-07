@@ -1,0 +1,30 @@
+{
+  "menu": {
+    "categories": {
+      "overview": "نمای کلی",
+      "ecommerce": "تجارت الکترونیک",
+      "userManagement": "مدیریت کاربران",
+      "analytics": "تحلیل‌ها",
+      "system": "سیستم"
+    },
+    "items": {
+      "dashboard": "داشبورد",
+      "orders": "سفارش‌ها",
+      "allOrders": "همه سفارش‌ها",
+      "shipments": "ارسال‌ها",
+      "payments": "پرداخت‌ها",
+      "products": "محصولات",
+      "users": "کاربران",
+      "allUsers": "همه کاربران",
+      "addUser": "افزودن کاربر",
+      "roles": "نقش‌ها",
+      "reports": "گزارش‌ها",
+      "sales": "فروش",
+      "productAnalytics": "محصولات",
+      "traffic": "ترافیک",
+      "settings": "تنظیمات",
+      "notifications": "اعلان‌ها",
+      "security": "امنیت"
+    }
+  }
+} 
