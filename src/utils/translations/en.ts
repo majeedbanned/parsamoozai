@@ -4,6 +4,36 @@ export const en = {
     saving: "Saving...",
     cancel: "Cancel",
   },
+  menu: {
+    categories: {
+      overview: "Overview",
+      students: "Students",
+      ecommerce: "E-commerce",
+      userManagement: "User Management",
+      analytics: "Analytics",
+      system: "System"
+    },
+    items: {
+      dashboard: "Dashboard",
+      studentsList: "Students List",
+      orders: "Orders",
+      allOrders: "All Orders",
+      shipments: "Shipments",
+      payments: "Payments",
+      products: "Products",
+      users: "Users",
+      allUsers: "All Users",
+      addUser: "Add User",
+      roles: "Roles",
+      reports: "Reports",
+      sales: "Sales",
+      productAnalytics: "Products",
+      traffic: "Traffic",
+      settings: "Settings",
+      notifications: "Notifications",
+      security: "Security"
+    }
+  },
   pages: {
     students: {
       title: "Students List",

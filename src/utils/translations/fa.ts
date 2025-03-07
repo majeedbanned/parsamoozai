@@ -4,6 +4,36 @@ export const fa = {
     saving: "در حال ذخیره...",
     cancel: "لغو",
   },
+  menu: {
+    categories: {
+      overview: "نمای کلی",
+      students: "دانش‌آموزان",
+      ecommerce: "تجارت الکترونیک",
+      userManagement: "مدیریت کاربران",
+      analytics: "تحلیل‌ها",
+      system: "سیستم"
+    },
+    items: {
+      dashboard: "داشبورد",
+      studentsList: "لیست دانش‌آموزان",
+      orders: "سفارش‌ها",
+      allOrders: "همه سفارش‌ها",
+      shipments: "ارسال‌ها",
+      payments: "پرداخت‌ها",
+      products: "محصولات",
+      users: "کاربران",
+      allUsers: "همه کاربران",
+      addUser: "افزودن کاربر",
+      roles: "نقش‌ها",
+      reports: "گزارش‌ها",
+      sales: "فروش",
+      productAnalytics: "محصولات",
+      traffic: "ترافیک",
+      settings: "تنظیمات",
+      notifications: "اعلان‌ها",
+      security: "امنیت"
+    }
+  },
   pages: {
     students: {
       title: "لیست دانش آموزان",

@@ -4,6 +4,36 @@ export const ar = {
     saving: "جاري الحفظ...",
     cancel: "إلغاء",
   },
+  menu: {
+    categories: {
+      overview: "نظرة عامة",
+      students: "الطلاب",
+      ecommerce: "التجارة الإلكترونية",
+      userManagement: "إدارة المستخدمين",
+      analytics: "التحليلات",
+      system: "النظام"
+    },
+    items: {
+      dashboard: "لوحة التحكم",
+      studentsList: "قائمة الطلاب",
+      orders: "الطلبات",
+      allOrders: "جميع الطلبات",
+      shipments: "الشحنات",
+      payments: "المدفوعات",
+      products: "المنتجات",
+      users: "المستخدمون",
+      allUsers: "جميع المستخدمين",
+      addUser: "إضافة مستخدم",
+      roles: "الأدوار",
+      reports: "التقارير",
+      sales: "المبيعات",
+      productAnalytics: "المنتجات",
+      traffic: "حركة المرور",
+      settings: "الإعدادات",
+      notifications: "الإشعارات",
+      security: "الأمان"
+    }
+  },
   pages: {
     students: {
       title: "قائمة الطلاب",
