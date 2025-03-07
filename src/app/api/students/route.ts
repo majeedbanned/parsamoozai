@@ -7,8 +7,8 @@ export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
     const page = parseInt(searchParams.get('page') || '1')
-    const limit = 12
-    const skip = (page - 1) * limit
+    const pageSize = parseInt(searchParams.get('pageSize') || '12')
+    const skip = (page - 1) * pageSize
 
     // Get total count for pagination
     const total = await prisma.student.count()
@@ -16,7 +16,7 @@ export async function GET(request: Request) {
     // Get paginated students
     const students = await prisma.student.findMany({
       skip,
-      take: limit,
+      take: pageSize,
       orderBy: {
         createdAt: 'desc',
       },
@@ -27,8 +27,8 @@ export async function GET(request: Request) {
       pagination: {
         total,
         page,
-        limit,
-        totalPages: Math.ceil(total / limit),
+        pageSize,
+        totalPages: Math.ceil(total / pageSize),
       },
     })
   } catch (error) {

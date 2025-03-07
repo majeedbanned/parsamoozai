@@ -69,6 +69,10 @@ export const en = {
         edit: "Edit",
         export: "Export Excel",
       },
+      pagination: {
+        show: "Show",
+        perPage: "per page",
+      },
       errors: {
         addFailed: "Failed to add student",
       },

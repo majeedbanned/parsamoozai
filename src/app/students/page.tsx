@@ -33,7 +33,7 @@ interface Student {
 interface PaginationInfo {
   total: number;
   page: number;
-  limit: number;
+  pageSize: number;
   totalPages: number;
 }
 
@@ -45,12 +45,15 @@ export default function StudentsPage() {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [pageSize, setPageSize] = useState(12);
   const [pagination, setPagination] = useState<PaginationInfo | null>(null);
   const { language } = useLanguage();
 
   const fetchStudents = async (page: number = 1) => {
     try {
-      const response = await fetch(`/api/students?page=${page}`);
+      const response = await fetch(
+        `/api/students?page=${page}&pageSize=${pageSize}`
+      );
       const data = await response.json();
 
       if (!response.ok) {
@@ -75,7 +78,12 @@ export default function StudentsPage() {
 
   useEffect(() => {
     fetchStudents(currentPage);
-  }, [currentPage]);
+  }, [currentPage, pageSize]);
+
+  const handlePageSizeChange = (newSize: number) => {
+    setPageSize(newSize);
+    setCurrentPage(1); // Reset to first page when changing page size
+  };
 
   const filteredStudents = students.filter((student) =>
     student.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -244,29 +252,50 @@ export default function StudentsPage() {
 
       {/* Pagination Controls */}
       {pagination && (
-        <div className="flex justify-center items-center gap-2 mt-4">
-          <Button
-            variant="outline"
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-            disabled={currentPage === 1}
-          >
-            {t("common.previous", language)}
-          </Button>
-          <span className="mx-2">
-            {t("common.page", language)} {currentPage}{" "}
-            {t("common.of", language)} {pagination.totalPages}
-          </span>
-          <Button
-            variant="outline"
-            onClick={() =>
-              setCurrentPage((prev) =>
-                Math.min(prev + 1, pagination.totalPages)
-              )
-            }
-            disabled={currentPage === pagination.totalPages}
-          >
-            {t("common.next", language)}
-          </Button>
+        <div className="flex justify-center items-center gap-4 mt-4">
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-gray-600">
+              {t("pages.students.pagination.show", language)}
+            </span>
+            <select
+              value={pageSize}
+              onChange={(e) => handlePageSizeChange(Number(e.target.value))}
+              className="border rounded px-2 py-1 text-sm"
+            >
+              <option value="12">12</option>
+              <option value="24">24</option>
+              <option value="36">36</option>
+              <option value="48">48</option>
+              <option value="60">60</option>
+            </select>
+            <span className="text-sm text-gray-600">
+              {t("pages.students.pagination.perPage", language)}
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Button
+              variant="outline"
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+            >
+              {t("common.previous", language)}
+            </Button>
+            <span className="mx-2">
+              {t("common.page", language)} {currentPage}{" "}
+              {t("common.of", language)} {pagination.totalPages}
+            </span>
+            <Button
+              variant="outline"
+              onClick={() =>
+                setCurrentPage((prev) =>
+                  Math.min(prev + 1, pagination.totalPages)
+                )
+              }
+              disabled={currentPage === pagination.totalPages}
+            >
+              {t("common.next", language)}
+            </Button>
+          </div>
         </div>
       )}
 

@@ -72,6 +72,10 @@ export const ar = {
         edit: "تعديل",
         export: "تصدير Excel",
       },
+      pagination: {
+        show: "عرض",
+        perPage: "في الصفحة",
+      },
       errors: {
         addFailed: "فشل في إضافة الطالب",
       },

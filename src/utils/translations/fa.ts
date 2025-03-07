@@ -72,6 +72,10 @@ export const fa = {
         edit: "ویرایش",
         export: "خروجی اکسل",
       },
+      pagination: {
+        show: "نمایش",
+        perPage: "در صفحه",
+      },
       errors: {
         addFailed: "خطا در افزودن دانش‌آموز",
       },
