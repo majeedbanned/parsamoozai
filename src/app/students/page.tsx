@@ -120,25 +120,25 @@ export default function StudentsPage() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>
+              <TableHead className="text-right rtl:text-right ltr:text-left">
                 {t("pages.students.columns.name", language)}
               </TableHead>
-              <TableHead>
+              <TableHead className="text-right rtl:text-right ltr:text-left">
                 {t("pages.students.columns.email", language)}
               </TableHead>
-              <TableHead>
+              <TableHead className="text-right rtl:text-right ltr:text-left">
                 {t("pages.students.columns.username", language)}
               </TableHead>
-              <TableHead>
+              <TableHead className="text-right rtl:text-right ltr:text-left">
                 {t("pages.students.columns.password", language)}
               </TableHead>
-              <TableHead>
+              <TableHead className="text-right rtl:text-right ltr:text-left">
                 {t("pages.students.columns.fathername", language)}
               </TableHead>
-              <TableHead>
+              <TableHead className="text-right rtl:text-right ltr:text-left">
                 {t("pages.students.columns.grade", language)}
               </TableHead>
-              <TableHead>
+              <TableHead className="text-right rtl:text-right ltr:text-left">
                 {t("pages.students.columns.status", language)}
               </TableHead>
               <TableHead className="text-right">
@@ -149,13 +149,25 @@ export default function StudentsPage() {
           <TableBody>
             {filteredStudents.map((student) => (
               <TableRow key={student.id}>
-                <TableCell>{student.name}</TableCell>
-                <TableCell>{student.email}</TableCell>
-                <TableCell>{student.username}</TableCell>
-                <TableCell>{student.password}</TableCell>
-                <TableCell>{student.fathername}</TableCell>
-                <TableCell>{student.grade}</TableCell>
-                <TableCell>
+                <TableCell className="text-right rtl:text-right ltr:text-left">
+                  {student.name}
+                </TableCell>
+                <TableCell className="text-right rtl:text-right ltr:text-left">
+                  {student.email}
+                </TableCell>
+                <TableCell className="text-right rtl:text-right ltr:text-left">
+                  {student.username}
+                </TableCell>
+                <TableCell className="text-right rtl:text-right ltr:text-left">
+                  {student.password}
+                </TableCell>
+                <TableCell className="text-right rtl:text-right ltr:text-left">
+                  {student.fathername}
+                </TableCell>
+                <TableCell className="text-right rtl:text-right ltr:text-left">
+                  {student.grade}
+                </TableCell>
+                <TableCell className="text-right rtl:text-right ltr:text-left">
                   <span
                     className={`px-2 py-1 rounded-full text-xs ${
                       student.status === "active"
