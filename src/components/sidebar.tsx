@@ -237,14 +237,22 @@ export function Sidebar() {
           ) : (
             <a
               href={item.href}
-              className={`flex w-full  flex-start ${
+              className={`flex w-full   ${
                 direction === "rtl"
                   ? "flex-row-reverse gap-2"
                   : "flex-row gap-2"
               }`}
             >
-              <item.icon className="h-5 w-5" />
-              {!isCollapsed && <span>{translatedLabel}</span>}
+              <div
+                className={`flex w-full   ${
+                  direction === "rtl"
+                    ? "flex-row-reverse gap-2"
+                    : "flex-row gap-2"
+                }`}
+              >
+                <item.icon className="h-5 w-5" />
+                {!isCollapsed && <span>{translatedLabel}</span>}
+              </div>
             </a>
           )}
         </Button>
