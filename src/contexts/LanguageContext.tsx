@@ -16,7 +16,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(
 );
 
 const LANGUAGE_STORAGE_KEY = "app_language";
-const DEFAULT_LANGUAGE: Language = "en";
+const DEFAULT_LANGUAGE: Language = "fa";
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguage] = useState<Language>(DEFAULT_LANGUAGE);
