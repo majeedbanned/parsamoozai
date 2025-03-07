@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { t } from "@/utils/translations";
+import { AddStudentDialog } from "@/components/students/AddStudentDialog";
 
 interface Student {
   id: string;
@@ -20,39 +21,67 @@ interface Student {
   email: string;
   grade: string;
   status: "active" | "inactive";
+  createdAt: string;
+  updatedAt: string;
 }
-
-const students: Student[] = [
-  {
-    id: "1",
-    name: "علی محمدی",
-    email: "ali@example.com",
-    grade: "دهم",
-    status: "active",
-  },
-  {
-    id: "2",
-    name: "سارا احمدی",
-    email: "sara@example.com",
-    grade: "یازدهم",
-    status: "active",
-  },
-  {
-    id: "3",
-    name: "محمد رضایی",
-    email: "mohammad@example.com",
-    grade: "دوازدهم",
-    status: "inactive",
-  },
-];
 
 export default function StudentsPage() {
   const [searchQuery, setSearchQuery] = useState("");
-  const { language, direction } = useLanguage();
+  const [students, setStudents] = useState<Student[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const { language } = useLanguage();
+
+  const fetchStudents = async () => {
+    try {
+      const response = await fetch("/api/students");
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.details || data.error || "Failed to fetch students"
+        );
+      }
+
+      setStudents(data);
+    } catch (err) {
+      console.error("Error fetching students:", err);
+      setError(
+        err instanceof Error
+          ? err.message
+          : "An error occurred while fetching students"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchStudents();
+  }, []);
 
   const filteredStudents = students.filter((student) =>
     student.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
+
+  if (loading) {
+    return (
+      <div className="container mx-auto py-10">
+        <div className="text-center">Loading...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="container mx-auto py-10">
+        <div className="text-center text-red-500">
+          <h2 className="text-xl font-semibold mb-2">Error</h2>
+          <p>{error}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="container mx-auto py-10">
@@ -67,7 +96,7 @@ export default function StudentsPage() {
             onChange={(e) => setSearchQuery(e.target.value)}
             className="max-w-sm"
           />
-          <Button>{t("pages.students.addStudent", language)}</Button>
+          <AddStudentDialog onStudentAdded={fetchStudents} />
         </div>
       </div>
       <div className="rounded-md border">
